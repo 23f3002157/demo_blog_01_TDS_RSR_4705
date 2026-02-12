@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Blog Post</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #fff;
+            --accent-color: #007BFF;
+            --background-light: #f4f4f4;
+            --background-dark: #222;
+            --text-light: #f4f4f4;
+            --text-dark: #222;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--primary-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--secondary-color);
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+        header h1 {
+            margin: 0;
+            padding: 15px;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        .dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+        }
+        .post-content {
+            padding: 20px;
+        }
+        .toc {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid var(--shadow);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blog Post Title</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="#" onclick="toggleDarkMode()">Toggle Dark Mode</a>
+        </nav>
+    </header>
+    <div class="post-content">
+        <img src="https://via.placeholder.com/800x300" alt="Featured Banner">
+        <h2>Blog Post Subtitle</h2>
+        <p>by Author on Date</p>
+        <div class="toc" id="toc"></div>
+        <article>
+            <h3>Section 1</h3>
+            <p>This is the first section of the blog post...</p>
+            <h3>Section 2</h3>
+            <p>This is the second section...</p>
+            <h3>Conclusion</h3>
+            <p>Wrapping up the post...</p>
+        </article>
+    </div>
+    <footer>
+        <p>&copy; 2023 My Blog | <a href="#">Social Links</a></p>
+    </footer>
+    <script>
+        function generateTOC() {
+            const toc = document.getElementById('toc');
+            const headings = document.querySelectorAll('h3');
+            headings.forEach((heading, index) => {
+                const id = `section-${index}`;
+                heading.id = id;
+                const link = document.createElement('a');
+                link.href = `#${id}`;
+                link.innerText = heading.innerText;
+                toc.appendChild(link);
+            });
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', body.classList.contains('dark-mode'));\n        }
+
+        window.onload = () => {
+            const darkMode = localStorage.getItem('dark-mode');
+            if (darkMode === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            generateTOC();
+        };
+    </script>
+</body>
+</html>
